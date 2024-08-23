@@ -39,7 +39,7 @@ def get_session_id():
 
     # Prepare payload for Veeva Vault API request
     payload = {
-        'username': "e0517016@sb-sanofi.com",
+        'username': USERNAME,
         'password': PASSWORD
     }
 
@@ -65,4 +65,4 @@ def get_session_id():
 
 # Run the Flask application
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
