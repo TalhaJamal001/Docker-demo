@@ -1,1 +1,1 @@
-this is demo file for jfrog usin github
+this is demo file for jfrog usin GITHUB.
