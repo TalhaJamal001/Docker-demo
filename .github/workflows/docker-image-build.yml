@@ -2,10 +2,8 @@ name: Build and Upload Docker Image to JFrog
 
 on:
   push:
-    branches:
-      - demo  # Trigger only on the demo branch
     paths:
-      - README.md  # Trigger only when README.md is changed
+      - 'README.md'  # Trigger only when README.md is changed
 
 jobs:
   build-and-push:
