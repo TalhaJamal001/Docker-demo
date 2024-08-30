@@ -3,36 +3,38 @@ name: Build and Upload Docker Image to JFrog
 on:
   push:
     branches:
-      - demo  # Trigger on push to the demo branch
+      - demo  # Trigger only on the demo branch
+    paths:
+      - README.md  # Trigger only when README.md is changed
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # Set up Docker Buildx for cross-platform builds
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      # Set up Docker Buildx for cross-platform builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    # Log in to JFrog Artifactory Docker repository
-    - name: Log in to JFrog Artifactory Docker repository
-      run: echo ${{ secrets.JFROG_PASS }} | docker login talha001.jfrog.io -u ${{ secrets.JFROG_USERNAME }} --password-stdin
+      # Log in to JFrog Artifactory Docker repository
+      - name: Log in to JFrog Artifactory Docker repository
+        run: echo ${{ secrets.JFROG_PASS }} | docker login talha001.jfrog.io -u ${{ secrets.JFROG_USERNAME }} --password-stdin
 
-    # Build the Docker image
-    - name: Build Docker image
-      run: |
-        docker build -t hello-world:latest .
+      # Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t hello-world:latest .
 
-    # Tag the Docker image with the Artifactory repository
-    - name: Tag Docker image
-      run: |
-        docker tag demo-docker:latest talha001.jfrog.io/demo-docker/hello-world:latest
+      # Tag the Docker image with the Artifactory repository
+      - name: Tag Docker image
+        run: |
+          docker tag hello-world:latest talha001.jfrog.io/demo-docker/hello-world:latest
 
-    # Push the Docker image to JFrog Artifactory
-    - name: Push Docker image to JFrog Artifactory
-      run: |
-        docker push talha001.jfrog.io/demo-docker/demo-docker:latest
+      # Push the Docker image to JFrog Artifactory
+      - name: Push Docker image to JFrog Artifactory
+        run: |
+          docker push talha001.jfrog.io/demo-docker/hello-world:latest
