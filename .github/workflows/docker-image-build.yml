@@ -25,14 +25,14 @@ jobs:
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t hello-world:latest .
+          docker build -t image_check:latest .
 
       # Tag the Docker image with the Artifactory repository
       - name: Tag Docker image
         run: |
-          docker tag hello-world:latest talha001.jfrog.io/demo-docker/hello-world:latest
+          docker tag image_check:latest talha001.jfrog.io/demo-docker/image_check:latest
 
       # Push the Docker image to JFrog Artifactory
       - name: Push Docker image to JFrog Artifactory
         run: |
-          docker push talha001.jfrog.io/demo-docker/hello-world:latest
+          docker push talha001.jfrog.io/demo-docker/image_check:latest
